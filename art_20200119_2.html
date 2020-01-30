@@ -1,0 +1,42 @@
+<article class="is-post is-post-excerpt">
+    <header>
+      <h2><a href="#">Installing Node.js / NPM</a></h2>
+      <span class="byline">Node.Js is a JavaScript runtime built on Chrome's V8 JavaScript engine. npm is the world’s largest software registry.</span> </header>
+    <div class="info"> <span class="date"><span class="month">January</span> <span class="day">19</span><span class="year">, 2020</span></span>
+      <!-- <ul class="stats">
+        <li><a href="#" class="link-icon24 link-icon24-1">12</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-2">24</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-3">48</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-4">96</a></li>
+      </ul> -->
+    </div>
+    <a href="#" class="image image-full"><img src="images/Node.js_logo.svg" alt=""></a>
+    <p> Installing node in linux is pretty simple : 
+<pre> 
+$ sudo apt-get install nodejs 
+</pre>
+        After installing node.js verify and check the installed version. You can find more details about current version on node.js official website.
+<pre>
+$ node -v 
+v13.3.0
+</pre>            
+      Also, check the npm version
+<pre>
+$ npm -v 
+6.13.4              
+</pre>
+      However, there's always a "catch". Versions from the ppa repository are not always up to date. Then, you can install a package called nvm. You can find it on its page on github :
+<pre>
+https://github.com/nvm-sh/nvm
+</pre>
+      There, as you may see, you can download and install nvm using the following command :
+<pre>
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+</pre>
+      To download, compile, and install the latest release of node, do this:
+<pre>
+$ nvm install node # "node" is an alias for the latest version
+</pre>
+
+    </p>
+  </article>

@@ -1,0 +1,75 @@
+<article class="is-post is-post-excerpt">
+    <header>
+      <h2><a href="#">New React Project - Part II</a></h2>
+      <span class="byline"> Creating a new React.js project for my Blog</span> </header>
+      <div class="info"> <span class="date"><span class="month">Jan<span>uary</span></span> <span class="day">20</span><sp class="year">, 2020</span></span>
+        <!-- ul class="stats">
+        <li><a href="#" class="link-icon24 link-icon24-1">16</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-2">32</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-3">64</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-4">128</a></li>
+      </ ul -->
+    </div>
+    <a href="#" class="image image-full"><img src="images/logo-react.png" alt=""></a>
+    <p>I've added all the tools and configuration that I need to start my project, let's start to work on my js code. I'm going to create my "index.js" </p>
+    <pre>
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+
+// import "styles/"
+
+import Home from "./Home";
+
+ReactDOM.render(<Home/>, document.getElementById("home"));
+    </pre>
+    <p>Before I create my "Home" component, however I'm gonna add css, images and font files. First I need to <i>npm</i> some components :</p>
+    <pre>
+$ npm install mini-css-extract-plugin --save-dev
+$ npm install copy-webpack-plugin --save-dev 
+$ npm install file-loader style-loader css-loader node-sass sass-loader --save-dev 
+    </pre>
+    <p>Then I'm going to update my  "webpack.config.js"</p>
+    <pre>
+      // ... At the begin >>>
+      const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+      const CopyWebpackPlugin = require("copy-webpack-plugin");
+      // ... on Module.Plugins >>>
+      plugins: [
+      new HtmlWebPackPlugin({
+          template: "src/index.html",
+          filename: "index.html"
+        }),
+      new CopyWebpackPlugin(
+        [{context:'public/resources/',from:'**/*', to:'resources'}]
+      ),
+      new MiniCssExtractPlugin({filename:'[name].style.css'})
+      ],  
+      // ... on Module.Rules >>>
+      {
+        test: /\.(s*)css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            outputPath: 'images/'
+          }
+        }
+      },
+       {
+         test: /\.(woff|woff2|eot|ttf|otf)$/,
+         use: {
+           loader: 'file-loader',
+           options: {
+             outputPath: 'fonts/'
+           }
+         }
+       },         
+    </pre>
+    <p>I'll need to use axios to call more data from my domain. </p>
+    <pre>
+$ npm install axios --save      
+    </pre>
+  </article>

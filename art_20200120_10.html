@@ -1,0 +1,124 @@
+<article class="is-post is-post-excerpt">
+    <header>
+      <h2><a href="#">New React Project - Part I</a></h2>
+      <span class="byline"> Creating a new React.js project for my Blog</span> </header>
+    <div class="info"> <span class="date"><span class="month">Jan<span>uary</span></span> <span class="day">20</span><sp class="year">, 2020</span></span>
+      <!-- ul class="stats">
+        <li><a href="#" class="link-icon24 link-icon24-1">16</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-2">32</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-3">64</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-4">128</a></li>
+      </ ul -->
+    </div>
+    <a href="#" class="image image-full"><img src="images/logo-react.png" alt=""></a>
+    <p> Since I'm studying React, I decided to implement my new blog in React. As I say, let's start slowly.</p>
+    <p>First thing to do, go to the folder of your project and start with npm :</p>
+    <pre>
+$ npm init
+    </pre>            
+    <p>It's going to ask you several questions. Don't worry about answering everything, you can always change it later. This will create a package.json file in your folder.</p>
+    <p>Now, you'll need a index.js, that's ths starting point for your application. You'll also need a packager, I'll use webpack, that's the most widely used tool. So let's install it :</p>
+    <pre>
+$ npm install webpack webpack-cli html-webpack-plugin html-loader --save-dev
+    </pre>   
+    <p>Next up add the webpack command inside package.json : </p>
+    <pre>
+      "scripts": {
+        "build": "webpack --mode production",
+      }      
+    </pre>
+    <p>To make our development a little easier, I'm also going to install webpack-dev-server. This will start a server, so I can see my project running in my browser as I develop it.</p>
+    <pre>
+$ npm install webpack-dev-server --save-dev
+    </pre>         
+    <p>And also create a command for it in npm (package.json) :</p>
+    <pre>
+      "scripts": {
+        "build": "webpack --mode production",
+        >>>>
+        "start": "webpack-dev-server --mode development --hot --open --port 3100",
+        <<<<
+      }      
+    </pre>
+    <p>Now, we'll need Babel. Why ? React uses a javascript specification called ES6. Most browsers uses ES5, a previous version. So wee need something to transpiling ("translate") from ES6 to ES5. Come in Babel.</p>
+    <pre>
+$ npm install @babel/core babel-loader @babel/preset-env @babel/preset-react babel-polyfill @babel/plugin-proposal-class-properties --save-dev
+    </pre>
+    <p>Now we can create a basic webpack.config.js :</p>
+    <pre>
+      const HtmlWebPackPlugin = require("html-webpack-plugin");
+      module.exports = {
+        entry: 'src/index.js',
+        output: {
+          path: __dirname + '/dist',
+          filename: 'index_bundle.js'
+        },
+      module: {
+          rules: [
+            {
+              test: /\.(js|jsx)$/,
+              exclude: /node_modules/,
+              use: {
+                loader: "babel-loader"
+                options:{
+                  presets: [
+                    "@babel/preset-env",
+                    "@babel/preset-react"
+                  ],
+                  plugins: [
+                    "@babel/plugin-proposal-class-properties"
+                  ]     
+                }
+              }
+            },
+            {
+              test: /\.html$/,
+              use: [
+                {
+                  loader: "html-loader"
+                }
+              ]
+            }      
+          ]
+        },
+        plugins: [
+          new HtmlWebPackPlugin({
+            template: "./src/index.html",
+            filename: "./index.html"
+          })
+        ]
+      };    
+    </pre>
+    <p>This done, let's install the react components :</p>
+    <pre>
+$ npm install react react-dom react-script react-router-dom react-redux react-bootstrap --save 
+    </pre>
+    <p>Now, I'm going to create a directory structure :</p>
+    <pre>
+$ mkdir -p src/components src/service src/styles
+$ mkdir -p public/resources/images      
+    </pre>
+    <p> and I'm gonna create an "index.html" file in my /src directory </p>
+    <pre>
+      &lt;!DOCTYPE html&gt;
+      &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+          &lt;title>My React App&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div id="home"&gt;&lt;/div&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;   
+    </pre>
+    <p>Also, I'm gonna create an empty index.js</p>
+    <pre>
+$ touch src/index.js      
+    </pre>
+    <p>With That, I'm able to execute my build script :</p>
+    <pre>
+$ npm run build      
+    </pre>    
+    <p>That's it for now, in the next post I'll start creating my blog application.</p>
+  </article>
+

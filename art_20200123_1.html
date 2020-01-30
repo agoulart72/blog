@@ -1,0 +1,53 @@
+<article class="is-post is-post-excerpt">
+    <header>
+      <h2><a href="#">My React Project</a></h2>
+      <span class="byline"> - Getting url parameters and writing html </span> </header>
+    <div class="info"> <span class="date"><span class="month">January</span> <span class="day">23</span><sp class="year">, 2020</span></span>
+      <!-- ul class="stats">
+        <li><a href="#" class="link-icon24 link-icon24-1">16</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-2">32</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-3">64</a></li>
+        <li><a href="#" class="link-icon24 link-icon24-4">128</a></li>
+      </ ul -->
+    </div>
+    <a href="#" class="image image-full"><img src="images/logo-react.png" alt=""></a>
+    <p> I decided to create my own blog code in react, to blog about my react study. Two recent things I've done. First, I need to retrieve url parameters,
+      so I can pass the page number to render the article. Second, I need to load the article and write it down on the component.
+    </p>
+    <p> To retrieve the query parameters, I'm using "location.search". I will install a utility component "query-string", so I don't have to parse it
+      by hand.</p>
+    <pre>
+$ npm install query-string --save      
+    </pre>
+    <p>Then, I wrote a method to retrieve and check my parameters : </p>
+    <pre>
+      function isNumber(n) { return !isNaN(parseInt(n)) && !isNaN(n - 0) };
+      const parsed = queryString.parse(location.search);
+      let page = 0, show = 3;
+      if (parsed) {
+          if (parsed.page && this.isNumber(parsed.page)) page = parseInt(parsed.page);
+          if (parsed.show && this.isNumber(parsed.show)) show = parseInt(parsed.show);
+      }
+    </pre>
+    <p> Now that I have received the parameters, I will recover the texts from files, but how do I display then ? I called axios to get my html files,
+      then I called a react function to insert then inside an element.      
+    </p>
+    <pre>
+      axios.create({
+        baseURL: "/",
+        responseType: "html"
+    }).get(this.props.file
+     ).then (artData => {
+       //console.log("Article :: ", artData.data);
+       this.setState({article: {__html:artData.data}, isLoading: false });
+    }).catch(error => {
+        console.error("Error loading article :::", error);
+    });
+    </pre>
+    <pre>
+      &lt;div dangerouslySetInnerHTML={article}&ht&lt;div&gt;
+    </pre>
+    <p>Why is it called "dangeroulsy" ??? Just to remind the developer that this function can be used to insert a malicious code and execute. 
+      For example if you use this function to display some text typed by the user. However, since I'm using this to display a file that I've created myself, I guess
+      it's pretty safe to use it.</p>
+  </article>
